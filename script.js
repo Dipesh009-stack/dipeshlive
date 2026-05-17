@@ -2,8 +2,7 @@
   const root = document.body;
   const themeToggle = document.querySelector("[data-theme-toggle]");
   const savedTheme = window.localStorage.getItem("theme");
-  const systemLight = window.matchMedia("(prefers-color-scheme: light)").matches;
-  const initialTheme = savedTheme || (systemLight ? "light" : "dark");
+  const initialTheme = savedTheme || "dark";
 
   function setTheme(theme) {
     root.setAttribute("data-theme", theme);
@@ -16,6 +15,56 @@
   themeToggle?.addEventListener("click", function () {
     const nextTheme = root.getAttribute("data-theme") === "dark" ? "light" : "dark";
     setTheme(nextTheme);
+  });
+
+  const emailLink = document.querySelector("[data-email-link]");
+  const copyEmailButton = document.querySelector("[data-copy-email]");
+
+  function getPlatform() {
+    const userAgentPlatform = navigator.userAgentData?.platform || navigator.platform || "";
+    return userAgentPlatform.toLowerCase();
+  }
+
+  emailLink?.addEventListener("click", function (event) {
+    if (event.target instanceof HTMLElement && event.target.closest("[data-copy-email]")) {
+      return;
+    }
+
+    const emailAddress = emailLink.getAttribute("data-email-address");
+    if (!emailAddress) return;
+
+    const platform = getPlatform();
+    let destination = `mailto:${emailAddress}`;
+
+    if (platform.includes("win")) {
+      destination = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(emailAddress)}`;
+    }
+
+    event.preventDefault();
+    window.location.href = destination;
+  });
+
+  copyEmailButton?.addEventListener("click", async function (event) {
+    event.preventDefault();
+    event.stopPropagation();
+
+    const emailAddress = copyEmailButton.getAttribute("data-email-address");
+    if (!emailAddress) return;
+
+    try {
+      await navigator.clipboard.writeText(emailAddress);
+      copyEmailButton.classList.add("is-copied");
+      copyEmailButton.setAttribute("aria-label", "Email copied");
+
+      window.setTimeout(() => {
+        copyEmailButton.classList.remove("is-copied");
+        copyEmailButton.setAttribute("aria-label", "Copy email address");
+      }, 1600);
+    } catch (_error) {
+      window.setTimeout(() => {
+        copyEmailButton.setAttribute("aria-label", "Copy email address");
+      }, 1600);
+    }
   });
 
   const heroFrame = document.querySelector(".hero-frame");

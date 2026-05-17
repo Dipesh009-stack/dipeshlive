@@ -944,6 +944,7 @@ h3 {
 .contact-copy {
   margin-top: 1rem;
   max-width: 33rem;
+  color: #58c98b;
 }
 
 .contact-links a {
@@ -964,17 +965,104 @@ h3 {
   color: var(--text-muted);
 }
 
+.contact-email-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  flex-wrap: wrap;
+}
+
+.copy-email-button {
+  appearance: none;
+  border: 1px solid var(--border);
+  background: color-mix(in srgb, var(--surface) 82%, transparent);
+  color: var(--text);
+  width: 1.9rem;
+  height: 1.9rem;
+  padding: 0;
+  border-radius: 0.45rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color 180ms ease, background-color 180ms ease, transform 180ms ease;
+}
+
+.copy-email-button:hover {
+  transform: translateY(-1px);
+}
+
+.copy-icon {
+  position: relative;
+  width: 0.9rem;
+  height: 0.9rem;
+  display: inline-block;
+}
+
+.copy-icon span {
+  position: absolute;
+  width: 0.72rem;
+  height: 0.72rem;
+  border: 1px solid currentColor;
+  border-radius: 0.16rem;
+}
+
+.copy-icon span:first-child {
+  top: 0.14rem;
+  left: 0.14rem;
+  opacity: 0.75;
+}
+
+.copy-icon span:last-child {
+  top: -0.02rem;
+  left: -0.02rem;
+  background: color-mix(in srgb, var(--surface) 88%, transparent);
+}
+
+.copy-email-button.is-copied {
+  background: rgba(88, 201, 139, 0.16);
+  border-color: rgba(88, 201, 139, 0.4);
+}
+
 .site-footer {
   border-top: 1px solid var(--border);
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--bg) 82%, transparent), var(--bg));
 }
 
 .footer-inner {
   display: flex;
   justify-content: space-between;
-  gap: 1rem;
-  padding: 1.5rem 0 2.5rem;
-  font-size: 0.82rem;
+  align-items: end;
+  gap: 1.5rem;
+  padding: 1.9rem 0 2.6rem;
+  font-size: 0.8rem;
   color: var(--text-muted);
+}
+
+.footer-signoff,
+.footer-meta {
+  display: grid;
+  gap: 0.2rem;
+}
+
+.footer-name {
+  color: var(--text);
+  font-size: 0.96rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.footer-role,
+.footer-meta {
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.footer-meta {
+  text-align: right;
 }
 
 [data-reveal] {
@@ -1111,6 +1199,16 @@ h3 {
   .button {
     min-height: 3rem;
     padding: 0 1.15rem;
+  }
+
+  .footer-inner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.85rem;
+  }
+
+  .footer-meta {
+    text-align: left;
   }
 }
 
