@@ -8,6 +8,7 @@
   function setTheme(theme) {
     root.setAttribute("data-theme", theme);
     window.localStorage.setItem("theme", theme);
+    themeToggle?.setAttribute("aria-pressed", theme === "dark" ? "true" : "false");
   }
 
   setTheme(initialTheme);
