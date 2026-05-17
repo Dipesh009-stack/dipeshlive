@@ -19,6 +19,8 @@
 
   const emailLink = document.querySelector("[data-email-link]");
   const copyEmailButton = document.querySelector("[data-copy-email]");
+  const contactForm = document.querySelector("#contact-form");
+  const contactFormStatus = document.querySelector("[data-form-status]");
 
   function getPlatform() {
     const userAgentPlatform = navigator.userAgentData?.platform || navigator.platform || "";
@@ -64,6 +66,49 @@
       window.setTimeout(() => {
         copyEmailButton.setAttribute("aria-label", "Copy email address");
       }, 1600);
+    }
+  });
+
+  contactForm?.addEventListener("submit", async function (event) {
+    event.preventDefault();
+
+    const formData = new FormData(contactForm);
+    const accessKey = formData.get("access_key");
+    const submitButton = contactForm.querySelector(".contact-submit");
+
+    if (!accessKey || accessKey === "YOUR_WEB3FORMS_ACCESS_KEY") {
+      if (contactFormStatus) {
+        contactFormStatus.textContent = "Add your Web3Forms access key to activate this form.";
+      }
+      return;
+    }
+
+    submitButton?.setAttribute("disabled", "true");
+    if (contactFormStatus) {
+      contactFormStatus.textContent = "Sending message...";
+    }
+
+    try {
+      const response = await fetch(contactForm.action, {
+        method: "POST",
+        body: formData,
+      });
+      const result = await response.json();
+
+      if (response.ok && result.success) {
+        contactForm.reset();
+        if (contactFormStatus) {
+          contactFormStatus.textContent = "Message sent successfully.";
+        }
+      } else {
+        throw new Error(result.message || "Submission failed.");
+      }
+    } catch (error) {
+      if (contactFormStatus) {
+        contactFormStatus.textContent = error instanceof Error ? error.message : "Unable to send message right now.";
+      }
+    } finally {
+      submitButton?.removeAttribute("disabled");
     }
   });
 

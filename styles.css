@@ -14,8 +14,8 @@
   --content-max: 1100px;
   --section-pad-y: clamp(4.5rem, 9vw, 7.5rem);
   --section-pad-x: clamp(1.25rem, 4vw, 3rem);
-  --font-sans: "Inter", system-ui, sans-serif;
-  --font-mono: "JetBrains Mono", "SF Mono", monospace;
+  --font-sans: "SF Pro Display", "SF Pro Text", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-mono: "SF Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
 }
 
 body[data-theme="dark"] {
@@ -1024,6 +1024,11 @@ h3 {
   align-items: start;
 }
 
+.contact-column {
+  display: grid;
+  gap: 2rem;
+}
+
 .contact-copy {
   margin-top: 1rem;
   max-width: 33rem;
@@ -1046,6 +1051,69 @@ h3 {
 .contact-links a span:last-child {
   font-size: 0.82rem;
   color: var(--text-muted);
+}
+
+.contact-form {
+  display: grid;
+  gap: 1.2rem;
+}
+
+.contact-form-botcheck {
+  display: none;
+}
+
+.contact-field {
+  display: grid;
+  gap: 0.7rem;
+}
+
+.contact-field span {
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.contact-field input,
+.contact-field textarea {
+  width: 100%;
+  padding: 0 0 0.95rem;
+  border: 0;
+  border-bottom: 1px solid var(--border);
+  background: transparent;
+  color: var(--text);
+  font: inherit;
+  border-radius: 0;
+  outline: none;
+  transition: border-color 180ms ease, color 180ms ease;
+}
+
+.contact-field textarea {
+  min-height: 7.5rem;
+  resize: vertical;
+}
+
+.contact-field input:focus,
+.contact-field textarea:focus {
+  border-color: var(--text);
+}
+
+.contact-form-actions {
+  display: grid;
+  gap: 0.9rem;
+  padding-top: 0.3rem;
+}
+
+.contact-submit {
+  justify-self: start;
+}
+
+.contact-form-status {
+  margin: 0;
+  min-height: 1.4rem;
+  color: var(--text-muted);
+  font-size: 0.9rem;
 }
 
 .contact-email-actions {
