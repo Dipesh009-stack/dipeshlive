@@ -70,15 +70,16 @@
   const heroFrame = document.querySelector(".hero-frame");
   const heroSection = document.querySelector(".hero");
   const aboutSection = document.querySelector("#about");
-  const aboutHeading = document.querySelector(".about-heading");
   const experienceSection = document.querySelector("#experience");
   const experienceHeading = document.querySelector(".experience-heading-copy");
   const experienceHandScene = document.querySelector(".experience-hand-scene");
   const experienceHand = document.querySelector(".experience-hand");
   const experienceHandGlow = document.querySelector(".experience-hand-glow");
   const experienceHandShadow = document.querySelector(".experience-hand-shadow");
+  const experienceList = document.querySelector(".experience-list");
+  const latestExperienceItem = document.querySelector(".latest-experience-item");
   const projectsSection = document.querySelector("#projects");
-  const appleFocusRow = document.querySelector(".apple-focus-row");
+  const experienceItems = document.querySelectorAll(".experience-item");
 
   function clamp(value, min, max) {
     return Math.min(max, Math.max(min, value));
@@ -103,29 +104,20 @@
       aboutSection.style.setProperty("--about-scene-progress", progress.toFixed(4));
     }
 
-    if (experienceSection) {
-      const rect = experienceSection.getBoundingClientRect();
-      const progress = clamp((window.innerHeight * 0.92 - rect.top) / (window.innerHeight * 0.68), 0, 1);
-      experienceSection.style.setProperty("--experience-scene-progress", progress.toFixed(4));
-      let focusProgress = clamp((window.innerHeight * 0.28 - rect.top) / (window.innerHeight * 0.9), 0, 1);
-
-      if (appleFocusRow) {
-        const appleRect = appleFocusRow.getBoundingClientRect();
-        const rowProgress = clamp(
-          (window.innerHeight * 0.58 - appleRect.top) / (window.innerHeight * 0.62),
-          0,
-          1
-        );
-        focusProgress = Math.max(focusProgress, rowProgress);
-      }
-
-      experienceSection.style.setProperty("--apple-focus-progress", focusProgress.toFixed(4));
-    }
-
     if (projectsSection) {
       const rect = projectsSection.getBoundingClientRect();
       const progress = clamp((window.innerHeight * 0.84 - rect.top) / (window.innerHeight * 0.62), 0, 1);
       projectsSection.style.setProperty("--projects-scene-progress", progress.toFixed(4));
+    }
+
+    if (experienceList && latestExperienceItem) {
+      const rect = latestExperienceItem.getBoundingClientRect();
+      const progress = clamp(
+        (window.innerHeight * 0.74 - rect.top) / (window.innerHeight * 0.68),
+        0,
+        1
+      );
+      experienceList.style.setProperty("--latest-job-progress", progress.toFixed(4));
     }
   }
 
@@ -171,108 +163,110 @@
     window.addEventListener("scroll", () => updateScrollScenes(), { passive: true });
   }
 
-  if (window.gsap && window.ScrollTrigger && experienceSection && experienceHeading && experienceHandScene && experienceHand) {
+  if (window.gsap && window.ScrollTrigger && experienceSection) {
     window.gsap.registerPlugin(window.ScrollTrigger);
 
-    // Experience section: cinematic heading entrance with a subtle scale/fade lift.
-    window.gsap.fromTo(
-      experienceHeading,
-      {
-        opacity: 0.26,
-        y: 42,
-        scale: 0.92,
-        force3D: true,
-      },
-      {
-        opacity: 1,
-        y: 0,
-        scale: 1,
-        ease: "none",
-        force3D: true,
+    if (experienceHeading && experienceHandScene && experienceHand) {
+      // Experience heading: subtle scale/fade entrance on scroll.
+      window.gsap.fromTo(
+        experienceHeading,
+        {
+          opacity: 0.26,
+          y: 42,
+          scale: 0.92,
+          force3D: true,
+        },
+        {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          ease: "none",
+          force3D: true,
+          scrollTrigger: {
+            trigger: experienceSection,
+            start: "top 82%",
+            end: "top 24%",
+            scrub: 1.1,
+          },
+        }
+      );
+
+      // Experience hand: 3D rotation, float, and layered parallax tied to scroll.
+      const handTimeline = window.gsap.timeline({
         scrollTrigger: {
           trigger: experienceSection,
-          start: "top 82%",
-          end: "top 24%",
-          scrub: 1.1,
+          start: "top 80%",
+          end: "bottom 30%",
+          scrub: 1.2,
         },
-      }
-    );
+        defaults: {
+          ease: "none",
+          force3D: true,
+        },
+      });
 
-    // Experience section: premium 3D hand motion with rotation, float, and layered parallax.
-    const handTimeline = window.gsap.timeline({
-      scrollTrigger: {
-        trigger: experienceSection,
-        start: "top 80%",
-        end: "bottom 30%",
-        scrub: 1.2,
-      },
-      defaults: {
-        ease: "none",
-        force3D: true,
-      },
-    });
-
-    handTimeline
-      .fromTo(
-        experienceHandScene,
-        {
-          y: 34,
-          opacity: 0.42,
-        },
-        {
-          y: -26,
-          opacity: 1,
-        },
-        0
-      )
-      .fromTo(
-        experienceHand,
-        {
-          rotateX: 18,
-          rotateY: -28,
-          rotateZ: -14,
-          y: 16,
-          z: -24,
-        },
-        {
-          rotateX: -12,
-          rotateY: 20,
-          rotateZ: 10,
-          y: -18,
-          z: 28,
-        },
-        0
-      )
-      .fromTo(
-        experienceHandGlow,
-        {
-          y: 24,
-          x: -10,
-          scale: 0.88,
-          opacity: 0.56,
-        },
-        {
-          y: -18,
-          x: 12,
-          scale: 1.08,
-          opacity: 0.92,
-        },
-        0
-      )
-      .fromTo(
-        experienceHandShadow,
-        {
-          y: 12,
-          scaleX: 0.84,
-          opacity: 0.18,
-        },
-        {
-          y: -10,
-          scaleX: 1.08,
-          opacity: 0.3,
-        },
-        0
-      );
+      handTimeline
+        .fromTo(
+          experienceHandScene,
+          {
+            y: 34,
+            opacity: 0.42,
+          },
+          {
+            y: -26,
+            opacity: 1,
+          },
+          0
+        )
+        .fromTo(
+          experienceHand,
+          {
+            rotateX: 18,
+            rotateY: -28,
+            rotateZ: -14,
+            y: 16,
+            z: -24,
+          },
+          {
+            rotateX: -12,
+            rotateY: 20,
+            rotateZ: 10,
+            y: -18,
+            z: 28,
+          },
+          0
+        )
+        .fromTo(
+          experienceHandGlow,
+          {
+            y: 24,
+            x: -10,
+            scale: 0.88,
+            opacity: 0.56,
+          },
+          {
+            y: -18,
+            x: 12,
+            scale: 1.08,
+            opacity: 0.92,
+          },
+          0
+        )
+        .fromTo(
+          experienceHandShadow,
+          {
+            y: 12,
+            scaleX: 0.84,
+            opacity: 0.18,
+          },
+          {
+            y: -10,
+            scaleX: 1.08,
+            opacity: 0.3,
+          },
+          0
+        );
+    }
 
     if (lenis) {
       lenis.on("scroll", window.ScrollTrigger.update);
@@ -280,6 +274,22 @@
 
     window.ScrollTrigger.refresh();
   }
+
+  experienceItems.forEach((item) => {
+    const toggle = item.querySelector(".experience-toggle");
+    if (!toggle) return;
+
+    toggle.addEventListener("click", () => {
+      const shouldOpen = !item.classList.contains("is-open");
+
+      experienceItems.forEach((otherItem) => {
+        const otherToggle = otherItem.querySelector(".experience-toggle");
+        const isCurrent = otherItem === item && shouldOpen;
+        otherItem.classList.toggle("is-open", isCurrent);
+        otherToggle?.setAttribute("aria-expanded", isCurrent ? "true" : "false");
+      });
+    });
+  });
 
   updateScrollScenes();
 
