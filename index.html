@@ -345,9 +345,33 @@
 
       <section class="section bordered-section" id="skills">
         <div class="section-inner">
-          <div class="section-heading" data-reveal>
-            <p class="section-label">Skills</p>
-            <h2>Tech stack</h2>
+          <div class="section-heading skills-heading" data-reveal>
+            <div class="skills-heading-copy">
+              <p class="section-label">Skills</p>
+              <h2>Tech stack</h2>
+            </div>
+            <div class="skills-robot-scene" aria-hidden="true">
+              <div class="skills-robot-float">
+                <div class="skills-robot-glow"></div>
+                <div class="skills-robot-shadow"></div>
+                <div class="skills-robot">
+                  <model-viewer
+                    class="skills-robot-model"
+                    src="./assets/emo_robot.glb"
+                    alt=""
+                    auto-rotate
+                    rotation-per-second="16deg"
+                    camera-controls
+                    disable-zoom
+                    disable-pan
+                    interaction-prompt="none"
+                    shadow-intensity="0"
+                    exposure="1.05"
+                    environment-image="neutral"
+                  ></model-viewer>
+                </div>
+              </div>
+            </div>
           </div>
 
           <div class="skill-groups">
@@ -412,14 +436,31 @@
       <section class="section bordered-section" id="contact">
         <div class="section-inner contact-grid">
           <div class="section-heading contact-column" data-reveal>
-            <div>
-              <p class="section-label">Contact</p>
-              <h2>Get in touch</h2>
-              <p class="contact-copy">
-                Open to engineering roles, collaborations, and AI-driven opportunities.
-              </p>
+            <div class="contact-heading-inline">
+              <div class="contact-heading-copy">
+                <p class="section-label">Contact</p>
+                <h2>Get in touch</h2>
+                <p class="contact-copy">
+                  Open to engineering roles, collaborations, and AI-driven opportunities.
+                </p>
+              </div>
+              <div class="contact-model-inline" aria-hidden="true">
+                <model-viewer
+                  class="contact-model-viewer"
+                  src="./assets/getintouch.glb"
+                  alt=""
+                  auto-rotate
+                  rotation-per-second="16deg"
+                  camera-controls
+                  disable-zoom
+                  disable-pan
+                  interaction-prompt="none"
+                  shadow-intensity="0"
+                  exposure="1.05"
+                  environment-image="neutral"
+                ></model-viewer>
+              </div>
             </div>
-
             <div class="contact-links">
               <a
                 href="mailto:dipeshwosti25@gmail.com"
