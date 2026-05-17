@@ -1056,6 +1056,9 @@ h3 {
 .contact-form {
   display: grid;
   gap: 1.2rem;
+  padding: 1.4rem 1.5rem 1.5rem;
+  border: 1px solid color-mix(in srgb, var(--border) 86%, rgba(255, 255, 255, 0.04));
+  background: color-mix(in srgb, var(--surface) 38%, transparent);
 }
 
 .contact-form-botcheck {
@@ -1072,7 +1075,7 @@ h3 {
   font-size: 0.74rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--text-muted);
+  color: color-mix(in srgb, var(--text-muted) 60%, var(--text));
 }
 
 .contact-field input,
@@ -1080,7 +1083,7 @@ h3 {
   width: 100%;
   padding: 0 0 0.95rem;
   border: 0;
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid color-mix(in srgb, var(--border) 70%, var(--text));
   background: transparent;
   color: var(--text);
   font: inherit;
@@ -1090,7 +1093,7 @@ h3 {
 }
 
 .contact-field textarea {
-  min-height: 7.5rem;
+  min-height: 5.6rem;
   resize: vertical;
 }
 
@@ -1112,7 +1115,7 @@ h3 {
 .contact-form-status {
   margin: 0;
   min-height: 1.4rem;
-  color: var(--text-muted);
+  color: color-mix(in srgb, var(--text-muted) 58%, var(--text));
   font-size: 0.9rem;
 }
 
