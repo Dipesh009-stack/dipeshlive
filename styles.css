@@ -542,7 +542,7 @@ h3 {
 }
 
 .experience-heading-simple {
-  margin-bottom: 2.5rem;
+  margin-bottom: 1.35rem;
 }
 
 .experience-heading-copy,
@@ -556,7 +556,7 @@ h3 {
 
 .experience-hand-scene {
   position: relative;
-  min-height: clamp(12rem, 24vw, 18rem);
+  min-height: clamp(8.5rem, 16vw, 11rem);
   perspective: 1400px;
   transform-style: preserve-3d;
 }
@@ -603,8 +603,8 @@ h3 {
 }
 
 .experience-hand {
-  width: clamp(8.5rem, 16vw, 11.5rem);
-  height: clamp(10rem, 22vw, 14rem);
+  width: clamp(7rem, 12vw, 8.8rem);
+  height: clamp(8rem, 16vw, 10rem);
   transform-style: preserve-3d;
   transform: rotateX(12deg) rotateY(-18deg) rotateZ(-10deg);
 }
