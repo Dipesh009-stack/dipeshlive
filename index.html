@@ -143,15 +143,17 @@
               <h2>Where I've worked</h2>
             </div>
             <div class="experience-hand-scene" aria-hidden="true">
-              <div class="experience-hand-glow"></div>
-              <div class="experience-hand-shadow"></div>
-              <div class="experience-hand">
-                <span class="hand-thumb"></span>
-                <span class="hand-palm"></span>
-                <span class="hand-finger hand-finger-one"></span>
-                <span class="hand-finger hand-finger-two"></span>
-                <span class="hand-finger hand-finger-three"></span>
-                <span class="hand-finger hand-finger-four"></span>
+              <div class="experience-hand-float">
+                <div class="experience-hand-glow"></div>
+                <div class="experience-hand-shadow"></div>
+                <div class="experience-hand">
+                  <span class="hand-thumb"></span>
+                  <span class="hand-palm"></span>
+                  <span class="hand-finger hand-finger-one"></span>
+                  <span class="hand-finger hand-finger-two"></span>
+                  <span class="hand-finger hand-finger-three"></span>
+                  <span class="hand-finger hand-finger-four"></span>
+                </div>
               </div>
             </div>
           </div>
@@ -234,29 +236,64 @@
 
       <section class="section bordered-section" id="projects">
         <div class="section-inner">
-          <div class="section-heading" data-reveal>
-            <p class="section-label">Projects</p>
-            <h2>Selected work shaped around reliability, delivery, and backend scale.</h2>
+          <div class="section-heading projects-heading" data-reveal>
+            <div class="projects-heading-copy">
+              <p class="section-label">Projects</p>
+              <h2>Selected work shaped around reliability, delivery, and backend scale.</h2>
+            </div>
+            <div class="projects-robot-scene" aria-hidden="true">
+              <div class="projects-robot-float">
+                <div class="projects-robot-glow"></div>
+                <div class="projects-robot-shadow"></div>
+                <div class="projects-robot">
+                  <model-viewer
+                    class="projects-robot-model"
+                    src="./assets/robot.glb"
+                    alt=""
+                    auto-rotate
+                    rotation-per-second="18deg"
+                    camera-controls
+                    disable-zoom
+                    disable-pan
+                    interaction-prompt="none"
+                    shadow-intensity="0"
+                    exposure="1.05"
+                    environment-image="neutral"
+                  ></model-viewer>
+                </div>
+              </div>
+            </div>
           </div>
 
           <div class="rows">
             <article class="project-row" data-reveal>
               <div class="row-meta">
-                <span>Infrastructure</span>
-                <span>Operations</span>
+                <span>AI / LLM</span>
+                <span>MCP Platform</span>
               </div>
               <div class="row-body">
-                <h3>Multi-environment platform support</h3>
+                <h3>
+                  <a
+                    href="https://github.com/Dipesh009-stack/perfMCP"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    PerfMCP Server
+                  </a>
+                </h3>
                 <p>
-                  Worked across hundreds of environments spanning development,
-                  preview, and production, helping teams keep deployments
-                  stable, coordinated, and maintainable.
+                  Built an AI-powered MCP orchestration platform that lets users
+                  query databases, trigger tools, and run backend workflows in
+                  natural language through a secure LLM execution layer.
                 </p>
                 <div class="tags">
+                  <span>Python</span>
+                  <span>FastAPI</span>
+                  <span>OpenAI</span>
+                  <span>MCP</span>
                   <span>AWS</span>
                   <span>Kubernetes</span>
-                  <span>Cloud Operations</span>
-                  <span>Incident Response</span>
+                  <span>PostgreSQL</span>
                 </div>
               </div>
             </article>
@@ -473,6 +510,7 @@
     <script src="https://unpkg.com/lenis@1.3.23/dist/lenis.min.js"></script>
     <script src="https://unpkg.com/gsap@3.12.7/dist/gsap.min.js"></script>
     <script src="https://unpkg.com/gsap@3.12.7/dist/ScrollTrigger.min.js"></script>
+    <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
     <script src="./script.js"></script>
   </body>
 </html>

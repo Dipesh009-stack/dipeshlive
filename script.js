@@ -124,6 +124,11 @@
   const experienceList = document.querySelector(".experience-list");
   const latestExperienceItem = document.querySelector(".latest-experience-item");
   const projectsSection = document.querySelector("#projects");
+  const projectsHeading = document.querySelector(".projects-heading-copy");
+  const projectsRobotScene = document.querySelector(".projects-robot-scene");
+  const projectsRobot = document.querySelector(".projects-robot");
+  const projectsRobotGlow = document.querySelector(".projects-robot-glow");
+  const projectsRobotShadow = document.querySelector(".projects-robot-shadow");
   const experienceItems = document.querySelectorAll(".experience-item");
 
   function clamp(value, min, max) {
@@ -318,6 +323,106 @@
     }
 
     window.ScrollTrigger.refresh();
+  }
+
+  if (window.gsap && window.ScrollTrigger && projectsSection && projectsHeading && projectsRobotScene && projectsRobot) {
+    window.gsap.fromTo(
+      projectsHeading,
+      {
+        opacity: 0.28,
+        y: 42,
+        scale: 0.93,
+        force3D: true,
+      },
+      {
+        opacity: 1,
+        y: 0,
+        scale: 1,
+        ease: "none",
+        force3D: true,
+        scrollTrigger: {
+          trigger: projectsSection,
+          start: "top 82%",
+          end: "top 26%",
+          scrub: 1.05,
+        },
+      }
+    );
+
+    const robotTimeline = window.gsap.timeline({
+      scrollTrigger: {
+        trigger: projectsSection,
+        start: "top 80%",
+        end: "bottom 34%",
+        scrub: 1.15,
+      },
+      defaults: {
+        ease: "none",
+        force3D: true,
+      },
+    });
+
+    robotTimeline
+      .fromTo(
+        projectsRobotScene,
+        {
+          y: 30,
+          opacity: 0.4,
+        },
+        {
+          y: -24,
+          opacity: 1,
+        },
+        0
+      )
+      .fromTo(
+        projectsRobot,
+        {
+          rotateX: 10,
+          rotateY: -20,
+          rotateZ: -8,
+          y: 16,
+          z: -20,
+        },
+        {
+          rotateX: -10,
+          rotateY: 18,
+          rotateZ: 6,
+          y: -18,
+          z: 26,
+        },
+        0
+      )
+      .fromTo(
+        projectsRobotGlow,
+        {
+          y: 20,
+          x: -8,
+          scale: 0.9,
+          opacity: 0.5,
+        },
+        {
+          y: -14,
+          x: 10,
+          scale: 1.08,
+          opacity: 0.88,
+        },
+        0
+      )
+      .fromTo(
+        projectsRobotShadow,
+        {
+          y: 12,
+          scaleX: 0.86,
+          opacity: 0.16,
+        },
+        {
+          y: -8,
+          scaleX: 1.06,
+          opacity: 0.28,
+        },
+        0
+      );
   }
 
   experienceItems.forEach((item) => {

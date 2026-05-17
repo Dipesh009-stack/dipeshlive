@@ -570,6 +570,14 @@ h3 {
   will-change: transform, opacity;
 }
 
+.experience-hand-float {
+  position: absolute;
+  inset: 0;
+  animation: experienceHandFloat 6.8s ease-in-out infinite;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
 .experience-hand-glow {
   width: 72%;
   height: 72%;
@@ -662,6 +670,22 @@ h3 {
   left: 68%;
   height: 43%;
   transform: rotate(11deg) translateZ(20px);
+}
+
+@keyframes experienceHandFloat {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) rotateZ(0deg);
+  }
+  25% {
+    transform: translate3d(0.18rem, -0.45rem, 0) rotateZ(1.2deg);
+  }
+  50% {
+    transform: translate3d(-0.12rem, -0.8rem, 0) rotateZ(-1deg);
+  }
+  75% {
+    transform: translate3d(0.12rem, -0.38rem, 0) rotateZ(0.8deg);
+  }
 }
 
 .experience-list {
@@ -836,6 +860,114 @@ h3 {
 
 #projects {
   --projects-scene-progress: 0;
+}
+
+#projects.section {
+  padding-top: clamp(2.4rem, 5vw, 4rem);
+  padding-bottom: clamp(3rem, 6vw, 4.8rem);
+}
+
+.projects-heading {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(180px, 0.32fr);
+  gap: clamp(0.2rem, 0.8vw, 0.5rem);
+  align-items: center;
+  margin-bottom: 1.25rem;
+}
+
+.projects-heading-copy,
+.projects-robot-scene {
+  will-change: transform, opacity;
+}
+
+.projects-heading-copy {
+  transform-origin: left center;
+}
+
+.projects-robot-scene {
+  position: relative;
+  min-height: clamp(7rem, 13vw, 9rem);
+  perspective: 1400px;
+  transform-style: preserve-3d;
+  transform: translateX(-4.4rem);
+  margin-top: 0;
+}
+
+.projects-robot-float {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  animation: projectsRobotFloat 7.2s ease-in-out infinite;
+  will-change: transform;
+}
+
+.projects-robot-glow,
+.projects-robot-shadow,
+.projects-robot {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  will-change: transform, opacity;
+}
+
+.projects-robot-glow {
+  width: 74%;
+  height: 74%;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 50% 38%, rgba(140, 160, 255, 0.16), transparent 28%),
+    radial-gradient(circle at 56% 56%, rgba(255, 255, 255, 0.1), transparent 34%);
+  filter: blur(32px);
+  transform: translateZ(-80px);
+}
+
+.projects-robot-shadow {
+  width: 52%;
+  height: 14%;
+  top: auto;
+  bottom: 6%;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.22);
+  filter: blur(22px);
+  transform: translateZ(-120px);
+}
+
+.projects-robot {
+  width: clamp(6.8rem, 10vw, 8.4rem);
+  height: clamp(8rem, 12vw, 10rem);
+  transform-style: preserve-3d;
+  transform: rotateX(8deg) rotateY(-16deg) rotateZ(-6deg);
+  left: 50%;
+  right: auto;
+  margin-left: auto;
+  margin-right: auto;
+  transform-origin: center center;
+}
+
+.projects-robot-model {
+  width: 100%;
+  height: 100%;
+  display: block;
+  --progress-bar-color: transparent;
+  --poster-color: transparent;
+  background: transparent;
+  filter: drop-shadow(0 18px 28px rgba(0, 0, 0, 0.28));
+}
+
+@keyframes projectsRobotFloat {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) rotateZ(0deg);
+  }
+  25% {
+    transform: translate3d(0.16rem, -0.4rem, 0) rotateZ(0.8deg);
+  }
+  50% {
+    transform: translate3d(-0.1rem, -0.7rem, 0) rotateZ(-0.8deg);
+  }
+  75% {
+    transform: translate3d(0.14rem, -0.34rem, 0) rotateZ(0.6deg);
+  }
 }
 
 #projects .section-inner {
@@ -1279,9 +1411,18 @@ h3 {
     grid-template-columns: 1fr;
   }
 
+  .projects-heading {
+    grid-template-columns: 1fr;
+  }
+
   .experience-hand-scene {
     min-height: 10rem;
     max-width: 20rem;
+  }
+
+  .projects-robot-scene {
+    min-height: 10rem;
+    max-width: 18rem;
   }
 
   .about-heading-visual {
@@ -1348,6 +1489,15 @@ h3 {
   .experience-hand {
     width: 7.5rem;
     height: 10rem;
+  }
+
+  .projects-robot-scene {
+    min-height: 8.6rem;
+  }
+
+  .projects-robot {
+    width: 8rem;
+    height: 11.2rem;
   }
 
   .button {
