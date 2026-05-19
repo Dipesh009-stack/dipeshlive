@@ -1259,17 +1259,21 @@ h3 {
 }
 
 .contact-heading-inline {
-  display: grid;
-  grid-template-columns: max-content max-content;
+  display: block;
+}
+
+.contact-title-row {
+  display: inline-flex;
   align-items: center;
-  justify-content: start;
-  gap: 0;
+  gap: 0.15rem;
+  max-width: 100%;
 }
 
 .contact-model-inline {
-  width: 4.4rem;
-  height: 4.9rem;
-  transform: translate(-1.9rem, 0.1rem);
+  width: 4.1rem;
+  height: 4.6rem;
+  flex: 0 0 auto;
+  transform: translateY(0.05rem);
 }
 
 .contact-model-viewer {
@@ -1660,17 +1664,17 @@ h3 {
   }
 
   .contact-heading-inline {
-    grid-template-columns: max-content max-content;
-    align-items: center;
-    justify-content: start;
+    display: block;
+  }
+
+  .contact-title-row {
     gap: 0;
   }
 
   .contact-model-inline {
     width: 2.9rem;
     height: 3.3rem;
-    transform: translate(-1rem, 0.08rem);
-    justify-self: start;
+    transform: translateY(0.05rem);
   }
 
   .button {
