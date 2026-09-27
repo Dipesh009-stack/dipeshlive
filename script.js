@@ -112,6 +112,113 @@
     }
   });
 
+  const assistant = document.querySelector(".portfolio-assistant");
+  const assistantPanel = document.querySelector("[data-assistant-panel]");
+  const assistantOpenButton = document.querySelector("[data-assistant-open]");
+  const assistantCloseButton = document.querySelector("[data-assistant-close]");
+  const assistantForm = document.querySelector("[data-assistant-form]");
+  const assistantInput = document.querySelector("[data-assistant-input]");
+  const assistantMessages = document.querySelector("[data-assistant-messages]");
+  const assistantPromptButtons = document.querySelectorAll("[data-assistant-prompt]");
+
+  function setAssistantOpen(isOpen) {
+    if (!assistant || !assistantPanel) return;
+    assistant.classList.toggle("is-open", isOpen);
+    assistantPanel.setAttribute("aria-hidden", isOpen ? "false" : "true");
+
+    if (isOpen) {
+      window.setTimeout(() => assistantInput?.focus(), 120);
+    }
+  }
+
+  function addAssistantMessage(message, type = "bot") {
+    if (!assistantMessages) return null;
+
+    const messageEl = document.createElement("div");
+    messageEl.className = `assistant-message assistant-message-${type}`;
+
+    const paragraph = document.createElement("p");
+    paragraph.textContent = message;
+    messageEl.append(paragraph);
+    assistantMessages.append(messageEl);
+    assistantMessages.scrollTop = assistantMessages.scrollHeight;
+
+    return messageEl;
+  }
+
+  function setAssistantLoading(isLoading) {
+    if (!(assistantInput instanceof HTMLInputElement)) return;
+    const sendButton = assistantForm?.querySelector(".assistant-send");
+    assistantInput.disabled = isLoading;
+    sendButton?.toggleAttribute("disabled", isLoading);
+  }
+
+  async function askAssistant(question) {
+    const trimmedQuestion = question.trim();
+    if (!trimmedQuestion) return;
+
+    addAssistantMessage(trimmedQuestion, "user");
+    const loadingMessage = addAssistantMessage("Thinking...", "bot");
+    setAssistantLoading(true);
+
+    try {
+      const response = await fetch("/api/chat", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ message: trimmedQuestion }),
+      });
+
+      const result = await response.json().catch(() => ({}));
+
+      if (!response.ok) {
+        throw new Error(result.error || "The assistant is unavailable right now.");
+      }
+
+      if (loadingMessage) {
+        loadingMessage.querySelector("p").textContent = result.answer || "I don't have a response for that yet.";
+      }
+    } catch (error) {
+      if (loadingMessage) {
+        loadingMessage.classList.add("assistant-message-error");
+        loadingMessage.querySelector("p").textContent =
+          error instanceof Error
+            ? error.message
+            : "The assistant is unavailable right now.";
+      }
+    } finally {
+      setAssistantLoading(false);
+      assistantInput?.focus();
+    }
+  }
+
+  assistantOpenButton?.addEventListener("click", () => setAssistantOpen(true));
+  assistantCloseButton?.addEventListener("click", () => setAssistantOpen(false));
+
+  assistantForm?.addEventListener("submit", (event) => {
+    event.preventDefault();
+
+    if (!(assistantInput instanceof HTMLInputElement)) return;
+    const question = assistantInput.value;
+    assistantInput.value = "";
+    askAssistant(question);
+  });
+
+  assistantPromptButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      const prompt = button.getAttribute("data-assistant-prompt") || "";
+      setAssistantOpen(true);
+      askAssistant(prompt);
+    });
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") {
+      setAssistantOpen(false);
+    }
+  });
+
   const experienceItems = document.querySelectorAll(".experience-item");
 
   experienceItems.forEach((item) => {

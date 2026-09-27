@@ -558,6 +558,65 @@
       </section>
     </main>
 
+    <section class="portfolio-assistant" aria-label="Portfolio chat assistant">
+      <button
+        class="assistant-launcher"
+        type="button"
+        data-assistant-open
+        aria-label="Open Dipesh's portfolio assistant"
+      >
+        <span class="assistant-launcher-dot" aria-hidden="true"></span>
+        <span>Ask AI</span>
+      </button>
+
+      <div class="assistant-panel" data-assistant-panel aria-hidden="true">
+        <div class="assistant-header">
+          <div class="assistant-heading">
+            <span class="assistant-status-dot" aria-hidden="true"></span>
+            <h2>Ask about Dipesh</h2>
+          </div>
+          <button
+            class="assistant-close"
+            type="button"
+            data-assistant-close
+            aria-label="Close assistant"
+          >
+            &times;
+          </button>
+        </div>
+
+        <div class="assistant-messages" data-assistant-messages aria-live="polite">
+          <div class="assistant-message assistant-message-bot">
+            <p>
+              Hi, I'm Dipesh's portfolio assistant. Ask me anything about his
+              experience, projects, skills, or resume. I use his portfolio
+              context, so I'll stay grounded.
+            </p>
+          </div>
+        </div>
+
+        <div class="assistant-prompts" aria-label="Suggested questions">
+          <button type="button" data-assistant-prompt="What did Dipesh do at Apple?">Apple work?</button>
+          <button type="button" data-assistant-prompt="Tell me about Dipesh's Hyve Solutions experience.">Hyve Solutions?</button>
+          <button type="button" data-assistant-prompt="Which AI projects has Dipesh built?">AI projects?</button>
+          <button type="button" data-assistant-prompt="What are Dipesh's strongest technical skills?">Strongest skills?</button>
+        </div>
+
+        <form class="assistant-form" data-assistant-form>
+          <label class="visually-hidden" for="assistant-question">Ask a question about Dipesh</label>
+          <input
+            id="assistant-question"
+            type="text"
+            data-assistant-input
+            autocomplete="off"
+            maxlength="500"
+            placeholder="Ask about Dipesh's career"
+          />
+          <button class="assistant-send" type="submit">Send</button>
+        </form>
+      </div>
+    </section>
+
     <footer class="site-footer">
       <div class="footer-inner">
         <div class="footer-signoff">
@@ -572,6 +631,6 @@
     </footer>
 
     <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
-    <script src="./script.js?v=2"></script>
+    <script src="./script.js?v=3"></script>
   </body>
 </html>
