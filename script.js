@@ -155,29 +155,34 @@
 
   const assistantAnswers = [
     {
-      keywords: ["apple", "devops", "apprentice", "apprenticeship", "etl", "jenkins", "terraform", "grafana", "splunk", "dynatrace"],
+      keywords: ["apple", "devops", "intern", "internship", "eks", "kubernetes", "elk", "prometheus", "grafana", "production incident"],
       answer:
-        "At Apple Inc., Dipesh worked as a DevOps Engineer apprentice from Feb 2025 to Aug 2025. He built AWS data processing pipelines with Python, automated ETL workflows with Jenkins, optimized SQL queries, deployed workloads on Kubernetes/EKS, used Terraform for reproducible infrastructure, and supported observability with Grafana, Splunk, and Dynatrace.",
+        "At Apple Inc., Dipesh worked as a DevOps Engineer intern from July 2025 to February 2026. He managed and maintained 8+ AWS EKS clusters, supported Kubernetes operations and deployments, monitored systems with ELK, Prometheus, and Grafana, and resolved production incidents through log analysis and root cause analysis.",
     },
     {
-      keywords: ["hyve", "current", "now", "present", "test specialist", "server", "rack", "slt", "rlt", "hardware", "bmc", "ipmi"],
+      keywords: ["figure", "robot", "robotics", "pilot", "triage", "current", "now", "present", "meta", "vr", "telemetry"],
       answer:
-        "Dipesh is currently a Contract Test Specialist at Hyve Solutions in Fremont, CA, starting Aug 2025. He validates high-density server systems through Server-Level Testing and Rack-Level Testing, analyzes BMC/IPMI and system logs, troubleshoots rack components, supports root cause analysis, and maintains quality documentation.",
+        "Dipesh is currently a Robot Pilot Support / Triage Specialist at Figure AI in San Jose, starting March 2026. He supports 70+ offsite robot pilot teams, triages 20+ technical issues daily, analyzes robot logs and telemetry, collaborates with robotics engineers on recurring failures, and drove a Meta VR application transition that increased data collection output by 20%.",
     },
     {
-      keywords: ["ai project", "ai projects", "mcp", "llm", "query", "database", "email assistant", "n8n", "openai", "opencv", "face recognition"],
+      keywords: ["hyve", "td synnex", "test specialist", "server", "rack", "slt", "rlt", "hardware", "bmc", "ipmi"],
       answer:
-        "Dipesh's AI-focused projects include an AI-Powered Data Query System using LLMs and MCP tools for natural-language database interaction, an AI Email Assistant using n8n and an LLM to draft email replies, and a Face Recognition Attendance System using Python, OpenCV, machine learning, and PostgreSQL.",
+        "At TD Synnex / Hyve Solutions, Dipesh worked as a Server Test Specialist from February 2024 to July 2025. He performed Server-Level Testing and Rack-Level Testing on high-density systems and diagnosed hardware failures using BMC/IPMI logs, system event logs, and diagnostic outputs.",
+    },
+    {
+      keywords: ["ai project", "ai projects", "mcp", "llm", "query", "database", "document search", "search engine", "tf-idf", "trie", "opencv", "face recognition"],
+      answer:
+        "Dipesh's projects include an AI-Powered Data Query System using Go, LLMs, and MCP tools for natural-language database interaction; a Document Search Engine using inverted indexing, trie autocomplete, TF-IDF ranking, and Top-K retrieval; and a Kubernetes-Based Data Pipeline Deployment.",
     },
     {
       keywords: ["kubernetes", "eks", "aws", "cloud", "pipeline", "docker", "deployment", "infrastructure"],
       answer:
-        "Dipesh has cloud and infrastructure experience with AWS, EKS, Kubernetes, Docker, Terraform, Jenkins, and Google Cloud. His Kubernetes-Based Data Pipeline Deployment project focused on containerized data workflows on AWS EKS, scalable infrastructure, cloud networking, and deployment reliability.",
+        "Dipesh has cloud and infrastructure experience with AWS, EKS, Kubernetes, Docker, Terraform, CI/CD, and production observability. His Kubernetes-Based Data Pipeline Deployment project focused on containerized data workflows, scalable infrastructure, and deployment reliability.",
     },
     {
       keywords: ["skill", "skills", "strongest", "technical", "stack", "tools"],
       answer:
-        "Dipesh's strongest technical areas are Python, SQL, Linux CLI, AWS, Kubernetes/EKS, Docker, Terraform, Jenkins, Git, networking fundamentals, server hardware validation, and AI tools like OpenAI, LLMs, MCP, OpenCV, and n8n.",
+        "Dipesh's strongest technical areas are Python, Go, Java, Linux CLI, AWS, Kubernetes/EKS, Docker, Terraform, CI/CD, ELK, Prometheus, Grafana, robot systems triage, server hardware validation, and AI/ML tools including LangChain, LLMs, RAG, PyTorch, Hugging Face, and TensorFlow.",
     },
     {
       keywords: ["education", "degree", "school", "university", "sjsu", "tribhuvan", "year up", "yearup"],
@@ -192,12 +197,12 @@
     {
       keywords: ["contact", "email", "phone", "linkedin", "reach", "hire", "open"],
       answer:
-        "You can contact Dipesh at wostid48@gmail.com or +1 (760) 716-2149. His LinkedIn is linkedin.com/in/dipeshwosti. His portfolio notes that he is open to engineering roles, collaborations, and AI-driven opportunities.",
+        "You can contact Dipesh at wostid48@gmail.com or +1 (760) 716-2149. His LinkedIn is linkedin.com/in/dipeshwosti. He is open to AI engineering roles focused on applied AI, agents, RAG, robotics, and reliable production platforms.",
     },
     {
       keywords: ["resume", "summary", "about", "who", "background", "overview"],
       answer:
-        "Dipesh is an AI master's student and engineer with experience across server validation, DevOps, cloud infrastructure, data pipelines, automation, and AI-assisted workflows. His background connects hardware diagnostics and Linux CLI work with AWS, Kubernetes, CI/CD, observability, and practical AI projects.",
+        "Dipesh is an AI master's student and engineer with experience across robotics support, production triage, DevOps, cloud infrastructure, and server validation. His background connects robot logs and telemetry, Linux diagnostics, AWS and Kubernetes operations, observability, incident response, and practical AI projects.",
     },
   ];
 
@@ -221,7 +226,7 @@
       return rankedAnswer.answer;
     }
 
-    return "I can answer from Dipesh's resume and portfolio. Try asking about his Apple work, Hyve Solutions role, AI projects, Kubernetes/cloud work, technical skills, education, certifications, or contact info.";
+    return "I can answer from Dipesh's resume and portfolio. Try asking about his Figure AI, Apple, or Hyve Solutions work, AI projects, Kubernetes/cloud experience, technical skills, education, certifications, or contact info.";
   }
 
   function askAssistant(question) {
@@ -305,6 +310,51 @@
     }
 
     window.requestAnimationFrame(animateCoin);
+  }
+
+  const isLocalPreview = ["localhost", "127.0.0.1"].includes(window.location.hostname);
+
+  if (isLocalPreview) {
+    const watchedAssets = ["./index.html", "./styles.css", "./script.js"];
+    let localAssetSignature = "";
+
+    function createContentSignature(content) {
+      let hash = 0;
+
+      for (let index = 0; index < content.length; index += 1) {
+        hash = (hash * 31 + content.charCodeAt(index)) >>> 0;
+      }
+
+      return `${content.length}:${hash}`;
+    }
+
+    async function checkForLocalChanges() {
+      try {
+        const contents = await Promise.all(
+          watchedAssets.map(async (asset) => {
+            const separator = asset.includes("?") ? "&" : "?";
+            const response = await fetch(`${asset}${separator}reload=${Date.now()}`, {
+              cache: "no-store",
+            });
+
+            return response.ok ? response.text() : "";
+          }),
+        );
+        const nextSignature = createContentSignature(contents.join("\n"));
+
+        if (localAssetSignature && nextSignature !== localAssetSignature) {
+          window.location.reload();
+          return;
+        }
+
+        localAssetSignature = nextSignature;
+      } catch {
+        // Keep the local preview usable if the development server briefly restarts.
+      }
+    }
+
+    checkForLocalChanges();
+    window.setInterval(checkForLocalChanges, 1500);
   }
 
 })();
